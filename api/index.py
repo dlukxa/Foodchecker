@@ -17,7 +17,7 @@ genai.configure(api_key=GOOGLE_API_KEY)
 model = genai.GenerativeModel('gemini-1.5-pro-latest')
 
 # Create a file to store image URLs
-image_urls_file = 'image_urls.txt'
+#image_urls_file = 'image_urls.txt'
 
 
 @app.route('/')
