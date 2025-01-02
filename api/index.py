@@ -32,6 +32,7 @@ def generate_text():
 
     try:
         response = requests.get(url)
+        url = "https://api.weektopic.org/?url=https://firebasestorage.googleapis.com/v0/b/calories-estimator.appspot.com/o/One-pot-chicken-and-rice-62e986b.jpg?alt=media&token=04d11b27-1377-4aaa-b3b4-e9b843aaad90"
         img = Image.open(BytesIO(response.content))
 
         prompt = ["Using an image of a meal, I need to estimate its caloric content. Please identify all visible ingredients, estimate their portion sizes using common object comparisons, and suggest likely cooking methods. Calculate the calorie count for each component using a standard calorie database and provide a total caloric estimate for the meal. Additionally, offer a brief overview of the meal's nutritional content, focusing on macronutrients and significant micronutrients. This comprehensive analysis will help in understanding the meal's nutritional impact and making informed dietary decisions. result give as json format. in resposne do not it have any this word 'json'. No empty in first line", img]
