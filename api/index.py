@@ -10,6 +10,10 @@ from flask_cors import CORS, cross_origin  # Import CORS
 app = Flask(__name__)
 CORS(app)  # Initialize CORS with app
 
+# Define a fixed API key for demonstration. In production, use a secure method to handle this.
+API_KEY = "ai123"
+
+
 # Initialize your Gemini model (replace with your actual model name)
 GOOGLE_API_KEY = 'AIzaSyCk0zQRKEIDRTBPSDpeGuwIE2e8TRvBaJw'
 genai.configure(api_key=GOOGLE_API_KEY)
@@ -24,6 +28,11 @@ model = genai.GenerativeModel('gemini-1.5-pro-latest')
 @app.route('/generate', methods=['GET'])
 @cross_origin() # Enable CORS for this route
 def generate_text():
+    # Retrieve the API key from the request headers
+    api_key_received = request.headers.get('Authorization')
+    if api_key_received != f"Bearer {API_KEY}":
+        return jsonify({'error': 'Unauthorized', 'message': 'Invalid or missing API key'}), 401
+    
     print('start')
     url = request.args.get('img')
     print(url)
@@ -46,7 +55,6 @@ def generate_text():
 
         # Joining the cleaned lines back into a single string
         cleaned_string = '\n'.join(cleaned_lines)
-
 
         try:
             json_data = json.loads(cleaned_string)
